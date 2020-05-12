@@ -205,7 +205,7 @@ const array1 = ["a", "b", "c", "x"];
 const array2 = ["z", "y", "a"];
 
 const func = (arr1, arr2) => {
-  const newArr = arr1.concat(arr2);
+  const newArr = arr1.concat(arr2); // speed: O(n). concat 이나 [...arr1, ...arr2] 나 거의 같은 성능이라네
   const totalLength = arr1.length + arr2.length;
   const skinyArr = Array.from(new Set(newArr));
 
@@ -258,3 +258,32 @@ const func = (arr1, arr2) => {
 func(array1, array2);
 //* Time complexity: O(a*b) // some, includes는 loop 사용 in behind scene
 //* Space complexity: O(1)
+
+//! Google question
+// Video https://www.youtube.com/watch?v=XKu_SEDAykw
+// Naive
+function hasPairWithSum(arr, sum) {
+  var len = arr.length;
+  for (var i = 0; i < len - 1; i++) {
+    for (var j = i + 1; j < len; j++) {
+      if (arr[i] + arr[j] === sum) return true;
+    }
+  }
+
+  return false;
+}
+
+// Better
+function hasPairWithSum2(arr, sum) {
+  const mySet = new Set();
+  const len = arr.length;
+  for (let i = 0; i < len; i++) {
+    if (mySet.has(arr[i])) {
+      return true;
+    }
+    mySet.add(sum - arr[i]);
+  }
+  return false;
+}
+
+hasPairWithSum2([6, 4, 3, 2, 1, 7], 9);
