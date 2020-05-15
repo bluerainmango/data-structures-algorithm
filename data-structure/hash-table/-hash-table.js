@@ -42,12 +42,37 @@ class HashTable {
     }
     return undefined;
   }
+
+  // 아래에서 눈치채야할 것: object 의 크기가 50이고, 그 안에 단 3개의 shelves에 데이터가 채워져 있다. 헌데, 이 3개만 loop를 돌면 될 것을 50개의 모든 shelves를 다 뒤져야 한다. 더욱이 data 가 한 shelf에 중복 저장되는 collision이 발생하면, loopxloop 를 쓰게 되어 속도는 더 느려진다.
+  // 이게 Array 대비 Object(hash table)의 단점이다. : 데이터가 랜덤하게 분산되어 채워지니 항상 모든 shelves를 다 loop해야 한다. 그래서 for in obj 구문이 그렇게 속도가 느리고, 반환되는 값의 순서도 보장이 안되는 단점이 있는 것이다.
+  keys() {
+    if (!this.data.length) {
+      return undefined;
+    }
+    let result = [];
+    // loop through all the elements
+    for (let i = 0; i < this.data.length; i++) {
+      // if it's not an empty memory cell
+      if (this.data[i] && this.data[i].length) {
+        // but also loop through all the potential collisions
+        if (this.data.length > 1) {
+          for (let j = 0; j < this.data[i].length; j++) {
+            result.push(this.data[i][j][0]);
+          }
+        } else {
+          result.push(this.data[i][0]);
+        }
+      }
+    }
+    return result;
+  }
 }
 
-const myHashTable = new HashTable(2);
+const myHashTable = new HashTable(50);
 myHashTable.set("grapes", 10000);
-myHashTable.set("grapess", 2000);
-myHashTable.get("grapess");
+myHashTable.set("orange", 2000);
+myHashTable.get("banana", 444);
+myHashTable.keys();
 
 // myHashTable.set('grapes', 10000)
 // myHashTable.get('grapes')

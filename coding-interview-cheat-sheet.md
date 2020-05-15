@@ -58,7 +58,9 @@ The 3 pillars of good code:
     is usually a divide-and-conquer approach — perform distributed processing of the data and only
     read certain chunks of the input from disk into memory, write the output back to disk and
     combine them later.
-    Good code checklist:
+
+### Good code checklist:
+
     [✅]It works
     [✅]Good use of data structures
     [✅]Code Re-use/ Do Not Repeat Yourself
@@ -67,8 +69,10 @@ The 3 pillars of good code:
     separate loops are better than 2 nested loops
     [✅]Low Space Complexity --> Recursion can cause stack overflow, copying of large arrays may
     exceed memory of machine
-    Heurestics to ace the question:
-    [✅]Hash Maps are usually the answer to improve Time Complexity
+
+### Heurestics(trick) to ace the question:
+
+    [✅]Hash tables are usually the answer to improve Time Complexity
     [✅]If it's a sorted array, use Binary tree to achieve O(log N). Divide and Conquer - Divide a data set
     into smaller chunks and then repeating a process with a subset of data. Binary search is a great
     example of this
