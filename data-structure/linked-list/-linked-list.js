@@ -32,6 +32,7 @@ const LinkedList = class {
     return this;
   }
 
+  //* Time complexity: O(1)
   prepend(value) {
     const newNode = {
       value,
@@ -45,6 +46,7 @@ const LinkedList = class {
     return this;
   }
 
+  //* Andrei solution
   //* Time complexity: O(n)
   //   insert(index, value) {
   //     //Check for proper parameters;
@@ -107,6 +109,7 @@ const LinkedList = class {
     return this.printList();
   }
 
+  //* Andrei solution
   //* Time complexity: O(n)
   //   remove(index) {
   //     // Check Parameters
@@ -153,11 +156,38 @@ const LinkedList = class {
     }
   }
 
+  //* Andrei solution
+  // 원리: 포인터를 바꾸고 head와 tail 뒤바꿈.
+  reverse() {
+    // 한자리 숫자일때
+    if (!this.head.next) {
+      return this.head;
+    }
+
+    let first = this.head;
+    this.tail = this.head;
+    let second = first.next;
+
+    while (second) {
+      const temp = second.next;
+      // 화살표 방향 바꿔주기
+      second.next = first;
+
+      // 다음 loop 타자를 위해 순서 이동
+      first = second;
+      second = temp;
+    }
+    // 위에 this.tail = this.head 때문에 this.head가 수정되면 this.tail도 수정된다.
+    this.head.next = null;
+    this.head = first;
+    return this;
+  }
+
+  //! My solution: reverse
   reverse() {
     let index = 0;
     let arr = [];
     let currentNode = this.head;
-    // let i = this.length-1
 
     while (index <= this.length - 1) {
       arr.push(currentNode.value);
