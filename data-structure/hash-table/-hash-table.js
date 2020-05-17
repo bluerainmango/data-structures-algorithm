@@ -49,7 +49,7 @@ class HashTable {
     if (!this.data.length) {
       return undefined;
     }
-    let result = [];
+    let result = []; // 여기서 array 대신 linked list 사용 가능
     // loop through all the elements
     for (let i = 0; i < this.data.length; i++) {
       // if it's not an empty memory cell
