@@ -1,3 +1,5 @@
+// 5! = 5x4x3x2x1
+
 //* solution 1 Loop.
 //time complexity : O(n)
 function findFactorialiterative(num) {

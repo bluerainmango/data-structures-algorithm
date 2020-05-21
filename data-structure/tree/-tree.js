@@ -284,6 +284,8 @@ JSON.stringify(traverse(tree.root));
 //1  6  15  170
 //        100
 //         120
+
+//! recursion을 사용한 traverse
 function traverse(node) {
   const tree = { value: node.value };
   tree.left = node.left === null ? null : traverse(node.left);
