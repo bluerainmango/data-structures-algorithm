@@ -1,4 +1,6 @@
 //! My Solution
+// time complexity: O(n log n)
+// space complexity: O(n)
 const numbers = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0];
 
 function mergeSort(array) {
@@ -24,7 +26,7 @@ function merge(left, right) {
     } else if (left[0] > right[0]) {
       arr.push(right.splice(0, 1)[0]);
     } else if (left[0] === right[0]) {
-      arr.push(elft.splice(0, 1)[0]);
+      arr.push(left.splice(0, 1)[0]);
       arr.push(right.splice(0, 1)[0]);
     }
   }
