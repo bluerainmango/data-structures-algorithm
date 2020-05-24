@@ -187,7 +187,7 @@ class BinarySearchTree {
     }
   }
 
-  //! 내 Solution
+  //! My Solution
   remove(value) {
     let prevNode = null;
     let direction = null;
@@ -263,6 +263,55 @@ class BinarySearchTree {
       }
     }
   }
+
+  //! BFS regular version
+  breadthFirstSearch() {
+    //     9
+    //  4     20
+    //1  6  15  170
+
+    // init: root인 9를 먼저 queue에 삽입
+    let currentNode = this.root;
+    let queue = [];
+    queue.push(currentNode);
+
+    // list는 모든 레벨을 돌며 queue에 저장됐던 자식 노드들의 value들만 모두 담은 list
+    let list = [];
+
+    while (queue.length > 0) {
+      currentNode = queue.shift();
+      list.push(currentNode.value);
+
+      // 다음 레벨 돌때를 대비, 자식 노드들 queue 저장
+      if (currentNode.left) {
+        queue.push(currentNode.left);
+      }
+      if (currentNode.right) {
+        queue.push(currentNode.right);
+      }
+    }
+    return list;
+  }
+
+  //* BFS recursion ver.
+  breadthFirstSearchR(queue, list) {
+    // regular 버전에서처럼 init으로 변수를 만들어주면, 모든 recursive call 에서 변수를 만들기에 안 좋다. 따라서 param으로 전달
+    if (!queue.length) {
+      return list;
+    }
+
+    let currentNode = queue.shift();
+    list.push(currentNode.value);
+
+    if (currentNode.left) {
+      queue.push(currentNode.left);
+    }
+    if (currentNode.right) {
+      queue.push(currentNode.right);
+    }
+
+    return this.breadthFirstSearchR(queue, list);
+  }
 }
 
 const tree = new BinarySearchTree();
@@ -271,14 +320,14 @@ tree.insert(4);
 tree.insert(6);
 tree.insert(20);
 tree.insert(170);
-tree.insert(100);
-tree.insert(120);
+// tree.insert(100);
+// tree.insert(120);
 tree.insert(15);
 tree.insert(1);
-tree.remove(172);
+// tree.remove(172);
 JSON.stringify(traverse(tree.root));
 // tree.lookup(171)
-
+tree.breadthFirstSearch();
 //     9
 //  4     20
 //1  6  15  170
