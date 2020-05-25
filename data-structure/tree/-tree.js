@@ -312,6 +312,71 @@ class BinarySearchTree {
 
     return this.breadthFirstSearchR(queue, list);
   }
+
+  //     9
+  //  4     20
+  //1  6  15  170
+
+  //* DFS 메소드 만드는 방법 3가지
+  //*1. InORder - [1,4,6,9,15,20,170]
+  //: 데이터 정렬 (왼쪽 컬럼 아래부터 root hit 후 또 다시 오른쪽 컬럼 맨 아래부터) | 왼자식 - 부모 - 오른자식
+  //*2. PreOrder - [9,4,1,6,20,15,170]
+  //: recreate tree하기 유용(실제 그리기 좋다는 뜻? 빗살무늬로 작대기 그려나가기 좋은 듯? | 부모 - 왼자식 - 오른자식
+  //*3. PostOrder - [1,6,4,15,170,20,9] | 왼자식 - 오른자식 - 부모
+
+  //* memory consumtion = height of tree : traverse 함수를 보면 tree 높이에 따라 recursion 수가 비례하기에. height이 너무 깊으면 call stack에 너무 많은 recursion call이 들어가 stack overflow.
+
+  DFSInOrder() {
+    return traverseInOrder(this.root, []);
+  }
+  DFSPostOrder() {
+    return traversePostOrder(this.root, []);
+  }
+  DFSPreOrder() {
+    return traversePreOrder(this.root, []);
+  }
+}
+
+function traverseInOrder(node, list) {
+  if (node.left) {
+    traverseInOrder(node.left, list);
+  }
+
+  list.push(node.value);
+
+  if (node.right) {
+    traverseInOrder(node.right, list);
+  }
+
+  return list;
+}
+
+function traversePreOrder(node, list) {
+  list.push(node.value);
+
+  if (node.left) {
+    traversePreOrder(node.left, list);
+  }
+
+  if (node.right) {
+    traversePreOrder(node.right, list);
+  }
+
+  return list;
+}
+
+function traversePostOrder(node, list) {
+  if (node.left) {
+    traversePostOrder(node.left, list);
+  }
+
+  if (node.right) {
+    traversePostOrder(node.right, list);
+  }
+
+  list.push(node.value);
+
+  return list;
 }
 
 const tree = new BinarySearchTree();
@@ -328,6 +393,12 @@ tree.insert(1);
 JSON.stringify(traverse(tree.root));
 // tree.lookup(171)
 tree.breadthFirstSearch();
+tree.breadthFirstSearchR(tree.root, []);
+
+console.log("DFSpre", tree.DFSPreOrder());
+console.log("DFSin", tree.DFSInOrder());
+console.log("DFSpost", tree.DFSPostOrder());
+
 //     9
 //  4     20
 //1  6  15  170
